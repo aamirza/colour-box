@@ -9,25 +9,42 @@ class BoxForm extends React.Component {
         }
 
         this.handleHeightChange = this.handleHeightChange.bind(this);
+        this.handleWidthChange = this.handleWidthChange.bind(this);
     }
 
-    handleHeightChange(event) {
-        const newValue = parseInt(event.target.value);
-        if (!isNaN(newValue) && newValue > 0) {
-            this.setState({height: parseInt(event.target.value)});
+    handleSizePropertyChange(property, newSize) {
+        /*
+        * For changing the height and width
+        * Will either return the new value, or if not a number, will maintain the current value.
+        */
+        if (!isNaN(newSize) && newSize > 0) {
+            this.setState({[property]: parseInt(newSize)});
         } else {
-            this.setState({height: this.state.height})
+            this.setState({[property]: this.state[property]});
         }
+    }
+
+    handleHeightChange(newHeight) {
+        this.handleSizePropertyChange('height', newHeight);
+    }
+
+    handleWidthChange(newWidth) {
+        this.handleSizePropertyChange('width', newWidth);
     }
 
     render() {
         return (
             <div className='app2'>
-                <div className='box-form'>
-                    <label>Height:
-                        <input type='number' min='1' value={this.state.height} onChange={this.handleHeightChange}/>
-                    </label>
-                </div>
+            <BoxNumericPropertySetter
+                propertyName='Height'
+                propertyValue={this.state.height}
+                onChange={this.handleHeightChange}
+            />
+            <BoxNumericPropertySetter
+                propertyName='Width'
+                propertyValue={this.state.width}
+                onChange={this.handleWidthChange}
+            />
             <ColourBox
                 height={this.state.height}
                 width={this.state.width}
@@ -35,6 +52,30 @@ class BoxForm extends React.Component {
             />
             </div>
         );
+    }
+}
+
+
+class BoxNumericPropertySetter extends React.Component {
+    /*
+    * Form to set height or width or other numeric properties.
+    * */
+    constructor(props) {
+        super(props);
+
+        this.handleSizeChange = this.handleSizeChange.bind(this);
+    }
+
+    handleSizeChange(event) {
+        this.props.onChange(event.target.value);
+    }
+
+    render() {
+        return (
+            <label>{this.props.propertyName} :
+                <input type='number' min='1' value={this.props.propertyValue} onChange={this.handleSizeChange}/>
+            </label>
+        )
     }
 }
 
