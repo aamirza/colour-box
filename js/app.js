@@ -3,8 +3,8 @@ class BoxForm extends React.Component {
         super(props)
 
         this.state = {
-            height: 400,
-            width: 400,
+            height: 40,
+            width: 40,
             colour: '#0000ff',
         }
 
@@ -35,21 +35,25 @@ class BoxForm extends React.Component {
     render() {
         return (
             <div className='app2'>
-            <BoxNumericPropertySetter
-                propertyName='Height'
-                propertyValue={this.state.height}
-                onChange={this.handleHeightChange}
-            />
-            <BoxNumericPropertySetter
-                propertyName='Width'
-                propertyValue={this.state.width}
-                onChange={this.handleWidthChange}
-            />
-            <ColourBox
-                height={this.state.height}
-                width={this.state.width}
-                colour={this.state.colour}
-            />
+                <div className='row d-flex justify-content-center'>
+                    <BoxNumericPropertySetter
+                        className='form-control'
+                        propertyName='Height'
+                        propertyValue={this.state.height}
+                        onChange={this.handleHeightChange}
+                    />
+                    <BoxNumericPropertySetter
+                        className='form-control'
+                        propertyName='Width'
+                        propertyValue={this.state.width}
+                        onChange={this.handleWidthChange}
+                    />
+                </div>
+                <ColourBox
+                    height={this.state.height}
+                    width={this.state.width}
+                    colour={this.state.colour}
+                />
             </div>
         );
     }
@@ -72,9 +76,13 @@ class BoxNumericPropertySetter extends React.Component {
 
     render() {
         return (
-            <label>{this.props.propertyName} :
-                <input type='number' min='1' value={this.props.propertyValue} onChange={this.handleSizeChange}/>
-            </label>
+            <div className='col-auto'>
+                <label htmlFor={'size-' + this.props.propertyName}>{this.props.propertyName}</label>
+                <div className='input-group'>
+                    <span className='input-group-text'>px</span>
+                    <input className={this.props.className} id={'size-' + this.props.propertyName} type='number' min='1' value={this.props.propertyValue} onChange={this.handleSizeChange}/>
+                </div>
+            </div>
         )
     }
 }
@@ -93,7 +101,7 @@ class ColourBox extends React.Component {
         }
 
         return (
-            <div style={style} />
+            <div style={style} className='mt-5'/>
         );
     }
 }
