@@ -3,13 +3,14 @@ class BoxForm extends React.Component {
         super(props)
 
         this.state = {
-            height: 40,
-            width: 40,
+            height: 200,
+            width: 200,
             colour: '#0000ff',
         }
 
         this.handleHeightChange = this.handleHeightChange.bind(this);
         this.handleWidthChange = this.handleWidthChange.bind(this);
+        this.handleColourChange = this.handleColourChange.bind(this);
     }
 
     handleSizePropertyChange(property, newSize) {
@@ -32,6 +33,11 @@ class BoxForm extends React.Component {
         this.handleSizePropertyChange('width', newWidth);
     }
 
+    handleColourChange(event) {
+        this.setState({colour: event.target.value});
+        document.getElementById('title').style.color = event.target.value;
+    }
+
     render() {
         return (
             <div className='app2'>
@@ -48,6 +54,10 @@ class BoxForm extends React.Component {
                         propertyValue={this.state.width}
                         onChange={this.handleWidthChange}
                     />
+                </div>
+                <div className='input-group mt-3 d-flex justify-content-center'>
+                    <label className='col-form-label-lg mx-2' htmlFor='colour'>Colour</label>< br />
+                    <input className='form-control-color' id='colour' type='color' value={this.state.colour} onInput={this.handleColourChange}/>
                 </div>
                 <ColourBox
                     height={this.state.height}
@@ -77,7 +87,7 @@ class BoxNumericPropertySetter extends React.Component {
     render() {
         return (
             <div className='col-auto'>
-                <label htmlFor={'size-' + this.props.propertyName}>{this.props.propertyName}</label>
+                <label className='col-form-label-lg' htmlFor={'size-' + this.props.propertyName}>{this.props.propertyName}</label>
                 <div className='input-group'>
                     <span className='input-group-text'>px</span>
                     <input className={this.props.className} id={'size-' + this.props.propertyName} type='number' min='1' value={this.props.propertyValue} onChange={this.handleSizeChange}/>
@@ -101,7 +111,7 @@ class ColourBox extends React.Component {
         }
 
         return (
-            <div style={style} className='mt-5'/>
+            <div style={style} className='mt-5 mx-auto'/>
         );
     }
 }
