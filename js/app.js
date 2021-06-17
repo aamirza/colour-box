@@ -111,7 +111,7 @@ class ColourBox extends React.Component {
         }
 
         return (
-            <div style={style} className='mt-5 mx-auto'/>
+            <div style={style} className='my-5 mx-auto'/>
         );
     }
 }
