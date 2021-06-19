@@ -1,19 +1,12 @@
 class BoxForm extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            height: 200,
-            width: 200,
-            colour: '#0000ff',
-        }
-
-        this.handleHeightChange = this.handleHeightChange.bind(this);
-        this.handleWidthChange = this.handleWidthChange.bind(this);
-        this.handleColourChange = this.handleColourChange.bind(this);
+    state = {
+        height: 200,
+        width: 200,
+        colour: '#0000ff',
     }
 
-    handleSizePropertyChange(property, newSize) {
+
+    handleSizePropertyChange = (property, newSize) => {
         /*
         * For changing the height and width
         * Will either return the new value, or if not a number, will maintain the current value.
@@ -25,22 +18,22 @@ class BoxForm extends React.Component {
         }
     }
 
-    handleHeightChange(newHeight) {
+    handleHeightChange = (newHeight) => {
         this.handleSizePropertyChange('height', newHeight);
     }
 
-    handleWidthChange(newWidth) {
+    handleWidthChange = (newWidth) => {
         this.handleSizePropertyChange('width', newWidth);
     }
 
-    handleColourChange(event) {
+    handleColourChange = (event) => {
         this.setState({colour: event.target.value});
         document.getElementById('title').style.color = event.target.value;
     }
 
     render() {
         return (
-            <div className='app2'>
+            <div className='app'>
                 <div className='row d-flex justify-content-center'>
                     <BoxNumericPropertySetter
                         className='form-control'
@@ -74,13 +67,8 @@ class BoxNumericPropertySetter extends React.Component {
     /*
     * Form to set height or width or other numeric properties.
     * */
-    constructor(props) {
-        super(props);
 
-        this.handleSizeChange = this.handleSizeChange.bind(this);
-    }
-
-    handleSizeChange(event) {
+    handleSizeChange = (event) => {
         this.props.onChange(event.target.value);
     }
 
@@ -99,10 +87,6 @@ class BoxNumericPropertySetter extends React.Component {
 
 
 class ColourBox extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const style = {
             height: this.props.height,
@@ -119,5 +103,5 @@ class ColourBox extends React.Component {
 
 ReactDOM.render(
     <BoxForm />,
-    document.getElementById('app')
+    document.getElementById('root')
 )
